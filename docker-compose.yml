@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+
+  mysql:
+    image: mysql:8.4
+    container_name: pocket_mysql
+
+    restart: always
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: pocket_news
+      MYSQL_USER: springuser
+      MYSQL_PASSWORD: spring123
+
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+
+    build:
+      context: ./Pocket-NewsPaper Backend
+
+    container_name: pocket_backend
+
+    depends_on:
+      - mysql
+
+    ports:
+      - "8080:8080"
+
+    environment:
+
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/pocket_news
+
+      SPRING_DATASOURCE_USERNAME: springuser
+
+      SPRING_DATASOURCE_PASSWORD: spring123
+
+  frontend:
+
+    build:
+      context: ./Pocket-NewsPaper Frontend
+
+    container_name: pocket_frontend
+
+    depends_on:
+      - backend
+
+    ports:
+      - "3000:3000"
+
+volumes:
+
+  mysql_data:
