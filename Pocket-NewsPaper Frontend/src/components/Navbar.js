@@ -141,7 +141,7 @@ Technology
 </Link>
 </li>
 
-<li className="nav-item mx-2">
+<li className="nav-item ">
 <Link
 className="nav-link"
 to="/Notes"
@@ -151,12 +151,11 @@ My-Notes
 </Link>
 </li>
 
-<li className="nav-item mx-2">
+<li className="nav-item ">
 <Link
 className="nav-link"
 to="/SavedArticles"
-onClick={closeNavbar}
->
+onClick={closeNavbar}>
 Saved-Articles
 </Link>
 </li>
