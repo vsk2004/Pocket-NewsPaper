@@ -167,7 +167,6 @@ className="nav-link"
 to="/last7days"
 onClick={closeNavbar}
 >
-<i className="bi bi-calendar-week me-1"></i>
 Last 7 Days
 </Link>
 </li>
