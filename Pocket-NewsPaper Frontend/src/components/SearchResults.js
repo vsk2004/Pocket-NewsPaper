@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import NewsItem from "./NewItem";
@@ -16,14 +16,12 @@ export default function SearchResults({ showAlert }) {
 
     const location = useLocation();
     const keyword = new URLSearchParams(location.search).get("keyword") || "";
-    const searchNews = async () => {
+    const searchNews = useCallback(async () => {
 
     setLoading(true);
 
     const response = await fetch(
-
         `${process.env.REACT_APP_API_URL}/api/news/search?keyword=${keyword}&page=0&size=10`,
-
         {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -32,29 +30,21 @@ export default function SearchResults({ showAlert }) {
     );
 
     if (response.status === 401 || response.status === 403) {
-
         logout();
-
-        showAlert(
-            "Session expired. Please login again.",
-            "warning"
-        );
-
+        showAlert("Session expired. Please login again.", "warning");
         navigate("/login");
-
         return;
     }
 
-        const data = await response.json();
+    const data = await response.json();
 
-        setArticles(data.content);
+    setArticles(data.content);
+    setTotalResults(data.totalElements);
+    setPage(1);
+    setLoading(false);
 
-        setTotalResults(data.totalElements);
+}, [keyword, token, logout, showAlert, navigate]);
 
-        setPage(1);
-
-        setLoading(false);
-    };
     const fetchMoreData = async () => {
 
     const response = await fetch(
@@ -93,14 +83,8 @@ export default function SearchResults({ showAlert }) {
 
     };
 useEffect(() => {
-
-   //document.title = `Search "${keyword}" | Pocket Newspaper`;
-
     searchNews();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-
-}, [keyword]);
+}, [searchNews]);
 return (
   <div
     className="container-fluid py-4"
