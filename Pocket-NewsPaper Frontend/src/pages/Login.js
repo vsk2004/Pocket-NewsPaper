@@ -52,7 +52,7 @@ function Login(props) {
 
         props.showAlert("Login successful!", "success");
 
-        navigate("/");
+        navigate("/home");
 
       } else {
 

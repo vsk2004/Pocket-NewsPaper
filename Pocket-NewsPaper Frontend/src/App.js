@@ -1,7 +1,10 @@
 import "./App.css";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Welcome from "./components/Welcome";
+
 import React, { useState } from "react";
+
 import SearchResults from "./components/SearchResults";
 import Navbar from "./components/Navbar";
 import News from "./components/News";
@@ -17,15 +20,14 @@ import {
   Routes,
   Route,
   Navigate,
-  useLocation
+  useLocation,
 } from "react-router-dom";
 
 function AppContent() {
-  
   const location = useLocation();
 
-
   const hideNavbar =
+    location.pathname === "/" ||
     location.pathname === "/login" ||
     location.pathname === "/signup";
 
@@ -38,8 +40,6 @@ function AppContent() {
   const [alert, setAlert] = useState(null);
 
   const showAlert = (message, type) => {
-    console.log("showAlert called");
-
     setAlert({
       msg: message,
       type: type,
@@ -58,24 +58,33 @@ function AppContent() {
         progress={progress}
       />
 
-
       {!hideNavbar && <Navbar showAlert={showAlert} />}
 
       <Alert alert={alert} />
 
       <Routes>
+
+        
+        <Route
+          path="/"
+          element={<Welcome />}
+        />
+
+       
         <Route
           path="/login"
           element={<Login showAlert={showAlert} />}
         />
 
+        
         <Route
           path="/signup"
           element={<Signup showAlert={showAlert} />}
         />
 
+       
         <Route
-          path="/"
+          path="/home"
           element={
             <ProtectedRoute>
               <News
@@ -89,6 +98,7 @@ function AppContent() {
           }
         />
 
+       
         <Route
           path="/health"
           element={
@@ -104,6 +114,7 @@ function AppContent() {
           }
         />
 
+       
         <Route
           path="/science"
           element={
@@ -119,6 +130,7 @@ function AppContent() {
           }
         />
 
+      
         <Route
           path="/sports"
           element={
@@ -134,6 +146,7 @@ function AppContent() {
           }
         />
 
+      
         <Route
           path="/technology"
           element={
@@ -149,6 +162,7 @@ function AppContent() {
           }
         />
 
+       
         <Route
           path="/business"
           element={
@@ -179,21 +193,7 @@ function AppContent() {
           }
         />
 
-        <Route
-          path="/nation"
-          element={
-            <ProtectedRoute>
-              <News
-                setProgress={handleSetProgress}
-                key="nation"
-                country="in"
-                category="nation"
-                showAlert={showAlert}
-              />
-            </ProtectedRoute>
-          }
-        />
-
+ 
         <Route
           path="/Notes"
           element={
@@ -203,6 +203,7 @@ function AppContent() {
           }
         />
 
+       
         <Route
           path="/SavedArticles"
           element={
@@ -212,6 +213,7 @@ function AppContent() {
           }
         />
 
+       
         <Route
           path="/last7days"
           element={
@@ -220,19 +222,23 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+
+       
         <Route
           path="/search"
           element={
-             <ProtectedRoute>
-                 <SearchResults showAlert={showAlert} />
-             </ProtectedRoute>
-        }
-      />
+            <ProtectedRoute>
+              <SearchResults showAlert={showAlert} />
+            </ProtectedRoute>
+          }
+        />
 
+     
         <Route
           path="*"
           element={<Navigate to="/" replace />}
         />
+
       </Routes>
     </>
   );
@@ -240,11 +246,9 @@ function AppContent() {
 
 function App() {
   return (
-    
     <Router>
       <AppContent />
     </Router>
-   
   );
 }
 
