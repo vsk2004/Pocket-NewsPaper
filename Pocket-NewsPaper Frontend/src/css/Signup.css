@@ -9,14 +9,40 @@
     display:flex;
     justify-content:center;
     align-items:center;
+    position:relative;
+    overflow:hidden;
     background:#0f172a;
 }
 
+.signup-container::before{
+    content:"";
+    position:absolute;
+    inset:-20px;
+    background-image:url('/public/news-bg.jpg');
+    background-size:cover;
+    background-position:center;
+    filter:blur(8px);
+    transform:scale(1.05);
+    z-index:0;
+}
+
+.signup-container::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(2, 6, 23, 0.55);
+    z-index:0;
+}
+
 .signup-card{
-    width:420px;
+    position:relative;
+    z-index:1;
+    width:min(420px, 90vw);
     padding:40px;
-    background:white;
-    border-radius:12px;
+    background:rgba(255, 255, 255, 0.94);
+    border-radius:16px;
+    box-shadow:0 20px 45px rgba(0, 0, 0, 0.25);
+    backdrop-filter:blur(10px);
 }
 
 .logo{
@@ -27,6 +53,7 @@
 .subtitle{
     text-align:center;
     margin-bottom:20px;
+    color:#475569;
 }
 
 .input-group{
@@ -36,15 +63,34 @@
 .input-group input{
     width:100%;
     padding:12px;
+    border:1px solid #cbd5e1;
+    border-radius:10px;
+    outline:none;
+}
+
+.input-group input:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 .login-btn{
     width:100%;
     padding:12px;
     cursor:pointer;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(135deg, #2563eb, #1d4ed8);
+    color:white;
+    font-weight:600;
 }
 
 .signup-link{
     margin-top:20px;
     text-align:center;
+}
+
+.signup-link a{
+    color:#2563eb;
+    text-decoration:none;
+    font-weight:600;
 }

@@ -8,11 +8,11 @@ function Alert({ alert }) {
     <div
       style={{
       position: "fixed",
-      top: "70px",
-      left: "70%",
+      top: "110px",
+      left: "65%",
       transform: "translateX(-50%)",
       zIndex: 9999,
-      width: "90%",
+      width: "80%",
       maxWidth: "400px",
 }}
     >

@@ -18,6 +18,8 @@ function Welcome() {
 
         <div className="glass-card">
 
+          <div className="hero-badge">Curated news • saved instantly • always secure</div>
+
           <h1 className="welcome-title">
             📰 Pocket Newspaper
           </h1>
@@ -34,13 +36,13 @@ function Welcome() {
 
           <div className="button-group">
 
-            <Link to="/login" className="login-btn">
-              Login
-            </Link>
+          <Link to="/login" className="welcome-login-btn">
+                Login
+          </Link>
 
-            <Link to="/signup" className="signup-btn">
+          <Link to="/signup" className="welcome-signup-btn">
               Create Account
-            </Link>
+          </Link>
 
           </div>
 
