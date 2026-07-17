@@ -12,7 +12,7 @@ public class NewsScheduler {
     @Autowired
     private NewsService newsService;
 
-    @Scheduled(cron = "0 0 * * * *")
+   @Scheduled(fixedRate = 60000)
     public void fetchLatestNews() {
 
        
@@ -30,7 +30,11 @@ public class NewsScheduler {
         for (String category : categories) {
 
             try {
+                System.out.println("Fetching: " + category);
                 newsService.getNews("in", category, null);
+                 System.out.println("Done: " + category);
+
+
                
             } catch (Exception e) {
                
@@ -40,5 +44,8 @@ public class NewsScheduler {
         }
 
        
+    
+
+    System.out.println("===== Scheduler Finished =====");
     }
 }
