@@ -12,7 +12,7 @@ public class NewsScheduler {
     @Autowired
     private NewsService newsService;
 
-   @Scheduled(fixedRate = 60000)
+     @Scheduled(cron = "0 0 */3 * * *")
     public void fetchLatestNews() {
 
        
@@ -31,7 +31,9 @@ public class NewsScheduler {
 
             try {
                 System.out.println("Fetching: " + category);
+                
                 newsService.getNews("in", category, null);
+                
                  System.out.println("Done: " + category);
 
 
